@@ -1,6 +1,9 @@
 import { Component } from "react";
+// import React, { useState } from "react";
 import classNames from "classnames";
 import { FaEdit } from "react-icons/fa";
+// import { FaEye } from "react-icons/fa";
+// import { FaEyeOff } from "react-icons/fa";
 import styles from "./SignUpForm.module.sass";
 
 const INITIAL_VALUES = { user: "", email: "", password: "" };
@@ -27,11 +30,10 @@ class SignUpForm extends Component {
   }
 
   handleInputChange(e) {
-    const target = e.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
+    const { isAgree } = this.state;
+    const value = e.target.checked;
     this.setState({
-      [name]: value,
+      isAgree: !isAgree,
     });
   }
 
@@ -55,7 +57,7 @@ class SignUpForm extends Component {
   };
 
   render() {
-    const { user, email, password, isEmailValid, isPasswordValid, isAgree } =
+    const { email, password, isEmailValid, isPasswordValid, isAgree } =
       this.state;
 
     const userClassName = classNames(styles.input);
@@ -73,7 +75,9 @@ class SignUpForm extends Component {
     console.log("isEmailValid", isEmailValid);
     return (
       <div className={styles.formContainer}>
-        <FaEdit className={styles.icon} />
+        <div className={styles.avatar}>
+          <FaEdit className={styles.icon} />
+        </div>
         <h1 className={styles.formHeader}>Create Your Account</h1>
 
         <form className={styles.loginForm} onSubmit={this.handleSubmit}>
@@ -87,7 +91,6 @@ class SignUpForm extends Component {
               autoFocus
             />
           </label>
-
           <label className={styles.label}>
             <span className={styles.inputName}>EMAIL ADRESS</span>
             <input
@@ -99,16 +102,12 @@ class SignUpForm extends Component {
               onChange={this.handleEmailChange}
             />
           </label>
-
           <label className={styles.label}>
             <span className={styles.inputName}>PASSWORD</span>
             <input
               className={passwordClassName}
               type="password"
-              name="password"
-              placeholder="password"
-              value={password}
-              onChange={this.handlePasswordChange}
+              placeholder="Password"
             />
           </label>
 
@@ -121,11 +120,9 @@ class SignUpForm extends Component {
             />
             I Agree All Statements In Terms of Service
           </label>
-
           <button className={styles.submit} type="submit">
             Sign Up
           </button>
-
           <p>
             I'm already a member!
             <span className={styles.signIn}> Sign In</span>
