@@ -72,7 +72,6 @@ class SignUpForm extends Component {
       [styles.inputInvalid]: !isPasswordValid,
     });
 
-    console.log("isEmailValid", isEmailValid);
     return (
       <div className={styles.formContainer}>
         <div className={styles.avatar}>
@@ -107,7 +106,10 @@ class SignUpForm extends Component {
             <input
               className={passwordClassName}
               type="password"
+              name="password"
               placeholder="Password"
+              value={password}
+              onChange={this.handlePasswordChange}
             />
           </label>
 
